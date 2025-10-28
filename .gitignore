@@ -1,0 +1,25 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Project specific folders
+data/
+log/
+log_tensorboard/
+logs_baseline/
+saved/
+wandb/
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+

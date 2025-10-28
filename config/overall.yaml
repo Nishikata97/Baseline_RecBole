@@ -1,0 +1,38 @@
+# Overall configuration for all models and datasets
+
+# ========== GPU Settings ==========
+gpu_id: 0
+
+# ========== Dataset Settings ==========
+data_path: 'data/'
+benchmark_filename: [train, valid, test]
+alias_of_item_id: [item_id_list]
+load_col:
+  inter: [user_id, item_id_list, item_id]
+MAX_ITEM_LIST_LENGTH: 20          # (int) Maximum sequence length for all datasets
+
+# ========== Training Settings ==========
+train_neg_sample_args: null       # Disable global negative sampling in CE mode
+epochs: 100                       # (int) The number of training epochs.
+train_batch_size: 1024            # (int) The training batch size.
+stopping_step: 10                 # (int) The threshold for validation-based early stopping.
+
+# ========== Evaluation Settings ==========
+metrics: ["Recall","MRR","NDCG","Hit","Precision"]  # (list or str) Evaluation metrics.
+topk: [5, 10, 20, 50]             # (list or int or None) The value of k for topk evaluation metrics.
+valid_metric: NDCG@10             # (str) The evaluation metric for early stopping. 
+valid_metric_bigger: True         # (bool) Whether to take a bigger valid metric value as a better result.
+eval_batch_size: 1024             # (int) The evaluation batch size.
+metric_decimal_place: 4           # (int) The decimal place of metric scores.
+
+# ========== Environment Settings ==========
+worker: 8                         # (int) The number of workers processing the data.
+seed: 2025                        # (int) Random seed.
+show_progress: False              # (bool) Show the progress of training epoch and evaluating epoch.
+log_wandb: True                   # (bool) Whether or not to use Weights & Biases(W&B).
+wandb_project: 'Baseline_RecBole' # (str) The project to conduct experiments in W&B.
+wandb_name: ''                    # (str) The variant name prefix for W&B run names.
+
+# ========== Mixed Precision Training ==========
+enable_amp: False                 # (bool) Enable Automatic Mixed Precision (AMP) training for faster computation.
+enable_scaler: False              # (bool) Enable gradient scaling to prevent underflow in mixed precision training.
