@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32GB
 #SBATCH --time=1-00:00:00
-#SBATCH --array=0-17%5  # 6 models × 3 datasets = 18 tasks, max 5 concurrent jobs
+#SBATCH --array=0-2%2  # 7 models × 3 datasets = 21 tasks, max 5 concurrent jobs
 #SBATCH --output=/dev/null
 #SBATCH --error=/dev/null
 
@@ -24,7 +24,8 @@ cd /nesi/project/uoo04109/practice/Baseline_RecBole
 mkdir -p logs_baseline/
 
 # Define model and dataset arrays
-models=("SASRec" "FEARec" "SINE" "CORE" "SASRecCPR" "BERT4Rec")
+# models=("SASRec" "FEARec" "SINE" "CORE" "SASRecCPR" "BERT4Rec" "TedRec")
+models=("TedRec")
 datasets=("Industrial_and_Scientific" "Baby_Products" "Office_Products")
 model_idx=$((SLURM_ARRAY_TASK_ID / ${#datasets[@]}))
 dataset_idx=$((SLURM_ARRAY_TASK_ID % ${#datasets[@]}))

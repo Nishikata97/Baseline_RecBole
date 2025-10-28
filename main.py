@@ -8,6 +8,9 @@ from recbole.data import create_dataset, data_preparation
 from recbole.utils import init_seed, init_logger, get_model, get_trainer
 
 from utils import setup_environment, dict2str, set_color
+from models.tedrec import TedRec
+from dataset.TedRecDataset import TedRecDataset
+
 setup_environment()
 
 
@@ -21,8 +24,15 @@ def main():
     parser.add_argument('--log_wandb', action='store_true', help='Enable W&B logging')
     args = parser.parse_args()
 
+    # Load model-specific config if exists
     configs = ['config/overall.yaml']
-    config = Config(model=args.model, dataset=args.dataset, config_file_list=configs)
+    model_config_path = f'config/{args.model}.yaml'
+    if os.path.exists(model_config_path):
+        configs.insert(0, model_config_path)
+    
+    # For custom models like TedRec, pass the class directly to avoid RecBole's model search
+    model_param = TedRec if args.model == 'TedRec' else args.model
+    config = Config(model=model_param, dataset=args.dataset, config_file_list=configs)
 
     timestamp = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
     model_name = f"{config['model']}-{config['dataset']}-{timestamp}.pth"
@@ -50,11 +60,21 @@ def main():
         )
         logger.info(f"Initialized W&B with run name: {run_name}")
 
-    dataset = create_dataset(config)
+    # Create dataset: use TedRecDataset for TedRec, otherwise use standard dataset
+    if args.model == 'TedRec':
+        dataset = TedRecDataset(config)
+    else:
+        dataset = create_dataset(config)
+    
     logger.info(dataset)
     train_data, valid_data, test_data = data_preparation(config, dataset)
-
-    model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
+    
+    # Create model with train_data.dataset
+    if args.model == 'TedRec':
+        model = TedRec(config, train_data.dataset).to(config['device'])
+    else:
+        model = get_model(config['model'])(config, train_data.dataset).to(config['device'])
+    
     logger.info(model)
 
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
