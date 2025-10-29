@@ -7,7 +7,7 @@ Sequential recommendation models benchmark using [RecBole](https://github.com/RU
 ### Core Files
 - **`main.py`** - Training and evaluation entry point
 - **`utils.py`** - Environment setup and utility functions
-- **`slurm_baseline.sh`** - SLURM job array script (6 models × 3 datasets)
+- **`slurm_baseline.sh`** - SLURM job array script (7 models × 3 datasets)
 - **`sync_git.sh`** - Git sync with auto-commit
 
 ### Configuration
@@ -31,6 +31,5 @@ sbatch slurm_baseline.sh
 
 ## Models & Datasets
 
-**Models:** SASRec, BERT4Rec, FEARec, SINE, CORE, SASRecCPR  
+**Models:** SASRec, BERT4Rec, FEARec, SINE, CORE, SASRecCPR, TedRec  
 **Datasets:** Baby_Products, Industrial_and_Scientific, Office_Products
-
