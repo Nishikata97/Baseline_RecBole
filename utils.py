@@ -1,6 +1,31 @@
 import torch
 import warnings
 from typing import Any
+import numpy as np
+
+
+def apply_numpy_compatibility_fixes() -> None:
+    """
+    NumPy 2.0 compatibility fix for RecBole.
+    MUST be applied before any RecBole imports.
+    Add all deprecated aliases that were removed in NumPy 2.0 but RecBole still uses.
+    """
+    numpy_aliases = {
+        'float': np.float64,
+        'int': np.int64,
+        'complex': np.complex128,
+        'bool': np.bool_,
+        'float_': np.float64,
+        'int_': np.int64,
+        'complex_': np.complex128,
+        'bool_': np.bool_,
+        'unicode_': np.str_,
+        'unicode': np.str_
+    }
+    
+    for alias, target in numpy_aliases.items():
+        if not hasattr(np, alias):
+            setattr(np, alias, target)
 
 
 def apply_pytorch_fixes() -> None:
@@ -31,7 +56,8 @@ def setup_warning_filters() -> None:
 
 
 def setup_environment() -> None:
-    """Apply all PyTorch fixes and warning filters."""
+    """Apply all compatibility fixes and warning filters."""
+    apply_numpy_compatibility_fixes()
     apply_pytorch_fixes()
     setup_warning_filters()
 

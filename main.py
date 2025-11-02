@@ -25,8 +25,8 @@ def main():
     args = parser.parse_args()
 
     # Load model-specific config if exists
-    configs = ['config/overall.yaml']
-    model_config_path = f'config/{args.model}.yaml'
+    configs = ['configs/overall.yaml']
+    model_config_path = f'configs/{args.model}.yaml'
     if os.path.exists(model_config_path):
         configs.insert(0, model_config_path)
     

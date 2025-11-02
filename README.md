@@ -11,7 +11,7 @@ Sequential recommendation models benchmark using [RecBole](https://github.com/RU
 - **`sync_git.sh`** - Git sync with auto-commit
 
 ### Configuration
-- **`config/overall.yaml`** - Global settings (hyperparameters, metrics, W&B)
+- **`configs/overall.yaml`** - Global settings (hyperparameters, metrics, W&B)
 
 ### Data Directories
 - **`data/`** - Datasets with embeddings and interaction files
