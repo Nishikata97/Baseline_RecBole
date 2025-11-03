@@ -199,4 +199,3 @@ def set_color(log, color, highlight=True):
         prev_log += "0;3"
     prev_log += str(index) + "m"
     return prev_log + log + "\033[0m"
-

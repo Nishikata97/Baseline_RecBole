@@ -21,7 +21,6 @@ def main():
                         help='Dataset Name')
     parser.add_argument('--model', type=str, default='SASRec', 
                         help='Sequential Recommendation Model (SASRec, BERT4Rec, SINE, CORE, FEARec, SASRecCPR, TedRec)')
-    parser.add_argument('--log_wandb', action='store_true', help='Enable W&B logging')
     args = parser.parse_args()
 
     # Load model-specific config if exists
@@ -58,7 +57,6 @@ def main():
             name=run_name,
             config=dict(config.final_config_dict)
         )
-        logger.info(f"Initialized W&B with run name: {run_name}")
 
     # Create dataset: use TedRecDataset for TedRec, otherwise use standard dataset
     if args.model == 'TedRec':
