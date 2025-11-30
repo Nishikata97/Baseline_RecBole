@@ -24,8 +24,8 @@ cd /nesi/project/uoo04109/practice/Baseline_RecBole
 mkdir -p logs_baseline/
 
 # Define model and dataset arrays
-# models=("SASRec" "FEARec" "SINE" "CORE" "SASRecCPR" "BERT4Rec" "TedRec")
-models=("TedRec")
+# models=("SASRec" "FEARec" "SINE" "CORE" "SASRecCPR" "BERT4Rec" "DuoRec" "CL4SRec" "TedRec")
+models=("DuoRec" "CL4SRec")
 datasets=("Industrial_and_Scientific" "Baby_Products" "Office_Products")
 model_idx=$((SLURM_ARRAY_TASK_ID / ${#datasets[@]}))
 dataset_idx=$((SLURM_ARRAY_TASK_ID % ${#datasets[@]}))
