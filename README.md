@@ -32,4 +32,5 @@ sbatch slurm_baseline.sh
 ## Models & Datasets
 
 **Models:** SASRec, BERT4Rec, FEARec, SINE, CORE, SASRecCPR, DuoRec, CL4SRec, TedRec
+
 **Datasets:** Baby_Products, Industrial_and_Scientific, Office_Products
