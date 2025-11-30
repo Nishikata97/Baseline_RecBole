@@ -11,6 +11,7 @@ log_tensorboard/
 logs_baseline/
 saved/
 wandb/
+*.log
 
 # Virtual environment
 venv/
