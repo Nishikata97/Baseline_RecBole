@@ -26,7 +26,12 @@ class TedRecDataset(SequentialDataset):
             loaded_feat = np.fromfile(feat_path, dtype=np.float32).reshape(-1, self.plm_size)
         else:
             # Try to load from .npy format (new Amazon datasets format)
+            # Support both: {dataset}_{suffix} and direct relative path (e.g., subdir/file.npy)
             npy_path = osp.join(self.config['data_path'], f'{self.dataset_name}_{self.plm_suffix}')
+            
+            # If not found, try as a direct relative path under data_path
+            if not os.path.exists(npy_path):
+                npy_path = osp.join(self.config['data_path'], self.plm_suffix)
             
             if os.path.exists(npy_path):
                 print(f"Loading embeddings from .npy format: {npy_path}")
